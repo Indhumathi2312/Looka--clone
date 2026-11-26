@@ -1,0 +1,352 @@
+/* Tablet & responsive layout refinements (600px - 1080px and mobile polish) */
+
+html {
+  overflow-x: hidden;
+}
+
+/* Prevent 50vw horizontal overflow from full-bleed CTA sections */
+.cta {
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+}
+
+/* Clean, non-broken styling for ScrollToTop button */
+.scroll-to-top {
+  align-items: center;
+  background: #fff;
+  border: 1px solid #dae2f2;
+  border-radius: 9999px;
+  color: #5340ff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: Circular, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  gap: 8px;
+  left: 50%;
+  margin: 32px auto 0;
+  padding: 10px 20px;
+  position: relative;
+  transform: translateX(-50%);
+  transition: all 0.2s ease-in-out;
+}
+
+.scroll-to-top:hover {
+  border-color: #5340ff;
+  box-shadow: 0 4px 12px rgba(83, 64, 255, 0.12);
+}
+
+.scroll-to-top__icon {
+  align-items: center;
+  display: inline-flex;
+}
+
+/* Compact desktop navbar spacing on smaller landscape tablets (1000px - 1140px) */
+@media (min-width: 1000px) and (max-width: 1140px) {
+  .navbar__nav li {
+    margin-right: 18px;
+  }
+
+  .menu-item--search {
+    padding-left: 18px;
+  }
+}
+
+/* Move fixed social share bar inline before it overlaps article on 920px - 1060px tablets */
+@media screen and (max-width: 1060px) {
+  .social--fixed {
+    flex-direction: row;
+    justify-content: flex-start;
+    left: 0;
+    padding: 8px 0 0;
+    position: relative;
+    top: auto;
+    transform: none;
+    width: 100%;
+  }
+
+  .social--fixed .share-button:first-child {
+    margin-left: 0;
+  }
+}
+
+/* Tablet layout (600px - 999px) */
+@media (max-width: 999px) {
+  /* Navbar & drawer */
+  .navbar.navbar--open .navbar__main {
+    display: flex;
+    overflow-y: auto;
+    padding: 32px 24px;
+  }
+
+  .navbar__nav {
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+  }
+
+  .navbar__nav li {
+    margin-right: 0;
+    width: 100%;
+  }
+
+  .navbar__nav a {
+    padding: 10px 0;
+  }
+
+  .navbar__account .get-started {
+    height: auto;
+    line-height: 28px;
+    padding: 14px 24px;
+  }
+
+  /* Searchbar on tablet & mobile */
+  .searchbar {
+    padding: 28px 24px;
+  }
+
+  .searchbar__heading {
+    font-size: 28px;
+    line-height: 36px;
+    margin-bottom: 24px;
+  }
+
+  .searchbar__form {
+    align-items: stretch;
+    gap: 8px;
+    margin: 0 auto;
+    max-width: 600px;
+    width: 100%;
+  }
+
+  .searchbar__input {
+    flex: 1 1 auto;
+    margin-right: 0;
+    min-width: 0;
+  }
+
+  /* Article container & typography on tablet */
+  .blog-single {
+    max-width: 768px;
+    padding: 104px 32px 0;
+  }
+
+  .blog-single__title {
+    font-size: 38px;
+    line-height: 48px;
+  }
+
+  .blog-single__inner img {
+    height: auto;
+    margin: 40px auto;
+    max-width: 100%;
+  }
+
+  .blog-single__inner .altpull {
+    font-size: 130%;
+    line-height: 30px;
+    margin: 36px 0;
+    padding: 22px 16px 22px 24px;
+  }
+
+  .blog-single__author {
+    margin: 72px 0;
+  }
+
+  /* Recommended articles: prevent horizontal overflow and orphan card stretch */
+  .blog-related {
+    margin: 88px auto;
+    padding: 0 32px;
+  }
+
+  .blog-related__posts {
+    grid-column-gap: 24px;
+    grid-row-gap: 36px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .blog-related__posts > * {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .tile__image {
+    aspect-ratio: 16 / 10;
+    min-height: 150px;
+  }
+
+  .tile__title {
+    font-size: 20px;
+    line-height: 26px;
+  }
+
+  /* Bottom CTA & Exit Newsletter CTA */
+  .cta {
+    margin: 0;
+    padding: 72px 32px;
+  }
+
+  .cta--two-col .cta__container {
+    align-items: center;
+    grid-column-gap: 32px;
+    grid-row-gap: 32px;
+    grid-template-columns: 1fr;
+    padding: 0;
+  }
+
+  .cta--two-col .cta__copy--container {
+    max-width: 600px;
+    padding: 0;
+    width: 100%;
+  }
+
+  .cta--two-col .cta__copy,
+  .cta--two-col .cta__headline {
+    text-align: center;
+  }
+
+  .cta--two-col .cta__form {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    margin: 0 auto;
+    max-width: 560px;
+    padding: 0;
+    width: 100%;
+  }
+
+  .cta--two-col .cta__input {
+    flex: 1 1 auto;
+    margin-bottom: 0;
+    margin-right: 0;
+    min-width: 0;
+  }
+
+  /* Exit newsletter modal on tablet */
+  .modal--exitnewsletter .modal__inner {
+    max-height: calc(100vh - 32px);
+    max-width: min(640px, calc(100vw - 32px));
+    overflow-y: auto;
+  }
+
+  .cta--exitnewsletter {
+    padding: 32px 24px;
+  }
+
+  .cta--exitnewsletter .cta__container {
+    grid-template-columns: 1fr;
+  }
+
+  .cta--exitnewsletter .cta__image--container {
+    max-height: 220px;
+    overflow: hidden;
+  }
+
+  .cta--exitnewsletter .cta__image {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+}
+
+/* Fix narrow tablet (600px - 767px) 2-column related cards & gallery */
+@media (min-width: 600px) and (max-width: 767px) {
+  .blog-related__posts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .blog-related__posts > :nth-child(3) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    max-width: calc(50% - 12px);
+  }
+
+  .blog-single__inner ul,
+  .blog-single__inner ol {
+    padding-left: 32px;
+  }
+}
+
+/* Fix Footer on tablet (701px - 999px) where 12-col grid crushed columns */
+@media (min-width: 701px) and (max-width: 999px) {
+  .footer {
+    padding: 56px 32px;
+  }
+
+  .footer__container {
+    grid-column-gap: 24px;
+    grid-row-gap: 36px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    justify-items: start;
+    padding: 0;
+  }
+
+  .footer__container > :first-child,
+  .footer__container > :nth-child(2),
+  .footer__container > :nth-child(3),
+  .footer__container > :nth-child(4) {
+    grid-column: auto;
+    width: 100%;
+  }
+
+  .footer__container > :nth-child(5) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    margin-top: 8px;
+    width: 100%;
+  }
+
+  .footer__social-list {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+  }
+
+  .footer__copyright {
+    padding: 0;
+    text-align: center;
+  }
+}
+
+/* Mobile refinements (<= 599px) */
+@media (max-width: 599px) {
+  .blog-single {
+    padding: 96px 20px 0;
+  }
+
+  .blog-single__title {
+    font-size: 32px;
+    line-height: 42px;
+  }
+
+  .blog-single__inner ul,
+  .blog-single__inner ol {
+    padding-left: 26px;
+  }
+
+  .blog-related {
+    margin: 72px auto;
+    padding: 0 20px;
+  }
+
+  .blog-related__posts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cta {
+    padding: 56px 20px;
+  }
+
+  .cta--two-col .cta__form {
+    flex-direction: column;
+  }
+
+  .cta--two-col .cta__input {
+    margin-bottom: 12px;
+  }
+
+  .searchbar__form {
+    flex-direction: column;
+  }
+}
