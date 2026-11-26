@@ -11,9 +11,11 @@
 # Testing
 /coverage
 
-# Next.js
+# Next.js & Deploy Outputs
 /.next/
 /out/
+/dist/
+/.netlify/
 
 # Production
 /build

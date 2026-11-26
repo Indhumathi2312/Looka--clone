@@ -11,12 +11,17 @@ type ActiveModal =
   | 'setNewPasswordModal'
   | 'exitNewsletterModal';
 
-export default function Modals() {
+interface ModalsProps {
+  showExitNewsletter?: boolean;
+}
+
+export default function Modals({ showExitNewsletter = false }: ModalsProps) {
   const [activeModal, setActiveModal] = useState<ActiveModal>(null);
   const [exitEmail, setExitEmail] = useState('');
   const [subscribeMessage, setSubscribeMessage] = useState('');
 
   useEffect(() => {
+    if (!showExitNewsletter) return;
     const handleMouseOut = (e: MouseEvent) => {
       if (e.clientY <= 0 && !sessionStorage.getItem('exitModalSeen')) {
         sessionStorage.setItem('exitModalSeen', '1');
@@ -31,7 +36,7 @@ export default function Modals() {
       window.clearTimeout(timer);
       document.removeEventListener('mouseout', handleMouseOut);
     };
-  }, []);
+  }, [showExitNewsletter]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -408,102 +413,104 @@ export default function Modals() {
         </div>
       </div>
 
-      <div
-        className={`modal modal--exitnewsletter${activeModal === 'exitNewsletterModal' ? ' modal--active' : ''}`}
-        id="exitNewsletterModal"
-        role="dialog"
-      >
-        <div className="modal__overlay" onClick={closeModal} />
-        <div className="modal__inner">
-          <div className="cta cta--two-col cta--newsletter cta--exitnewsletter">
-            <button
-              type="button"
-              className="modal__close"
-              data-plugin="MODAL_TRIGGER"
-              aria-label="Close"
-              onClick={closeModal}
-            >
-              ×
-            </button>
-            <div className="cta__container">
-              <div className="cta__copy--container">
-                <h2 className="cta__headline">
-                  {' '}
-                  {EXIT_NEWSLETTER_CTA.headline}{' '}
-                </h2>
-                <p className="cta__copy"> {EXIT_NEWSLETTER_CTA.copy} </p>
-                <form
-                  className="cta__form subscribe-blog-cta"
-                  onSubmit={handleNewsletterSubmit}
-                >
-                  <label
-                    className="screen-reader-text"
-                    htmlFor="exit-subscribe_6b04b6d3eea491.73600495"
-                  >
+      {showExitNewsletter && (
+        <div
+          className={`modal modal--exitnewsletter${activeModal === 'exitNewsletterModal' ? ' modal--active' : ''}`}
+          id="exitNewsletterModal"
+          role="dialog"
+        >
+          <div className="modal__overlay" onClick={closeModal} />
+          <div className="modal__inner">
+            <div className="cta cta--two-col cta--newsletter cta--exitnewsletter">
+              <button
+                type="button"
+                className="modal__close"
+                data-plugin="MODAL_TRIGGER"
+                aria-label="Close"
+                onClick={closeModal}
+              >
+                ×
+              </button>
+              <div className="cta__container">
+                <div className="cta__copy--container">
+                  <h2 className="cta__headline">
                     {' '}
-                    Enter your email to subscribe to Looka&apos;s blog{' '}
-                  </label>
-                  <input
-                    className="cta__input"
-                    type="email"
-                    id="exit-subscribe_6b04b6d3eea491.73600495"
-                    name="email"
-                    value={exitEmail}
-                    onChange={(e) => setExitEmail(e.target.value)}
-                    placeholder={EXIT_NEWSLETTER_CTA.placeholder}
-                    required
-                  />
-                  <input type="hidden" name="htmlemail" value="1" />
-                  <input
-                    type="hidden"
-                    name="attribute1"
-                    value="subscriptioncta_exit"
-                  />
-                  <input type="hidden" name="list[7]" value="signup" />
-                  <input
-                    type="hidden"
-                    name="listname[7]"
-                    value="Blog Subscribers"
-                  />
-                  <button
-                    className="cta__button cta__button--primary"
-                    type="submit"
+                    {EXIT_NEWSLETTER_CTA.headline}{' '}
+                  </h2>
+                  <p className="cta__copy"> {EXIT_NEWSLETTER_CTA.copy} </p>
+                  <form
+                    className="cta__form subscribe-blog-cta"
+                    onSubmit={handleNewsletterSubmit}
                   >
-                    {' '}
-                    {EXIT_NEWSLETTER_CTA.buttonLabel}{' '}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      height="16px"
-                      width="16px"
-                      viewBox="0 0 24 24"
+                    <label
+                      className="screen-reader-text"
+                      htmlFor="exit-subscribe_6b04b6d3eea491.73600495"
                     >
-                      <path
-                        stroke="#fff"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                        d="m14 5 7 7m0 0-7 7m7-7H3"
-                      />
-                    </svg>{' '}
-                  </button>
-                  <p className="cta__subscribe--message" id="subscribe-message">
-                    {subscribeMessage}
-                  </p>
-                </form>
-              </div>
-              <div className="cta__image--container">
-                <img
-                  className="cta__image"
-                  src={EXIT_NEWSLETTER_CTA.imageSrc}
-                  alt={EXIT_NEWSLETTER_CTA.imageAlt}
-                  loading="lazy"
-                />
+                      {' '}
+                      Enter your email to subscribe to Looka&apos;s blog{' '}
+                    </label>
+                    <input
+                      className="cta__input"
+                      type="email"
+                      id="exit-subscribe_6b04b6d3eea491.73600495"
+                      name="email"
+                      value={exitEmail}
+                      onChange={(e) => setExitEmail(e.target.value)}
+                      placeholder={EXIT_NEWSLETTER_CTA.placeholder}
+                      required
+                    />
+                    <input type="hidden" name="htmlemail" value="1" />
+                    <input
+                      type="hidden"
+                      name="attribute1"
+                      value="subscriptioncta_exit"
+                    />
+                    <input type="hidden" name="list[7]" value="signup" />
+                    <input
+                      type="hidden"
+                      name="listname[7]"
+                      value="Blog Subscribers"
+                    />
+                    <button
+                      className="cta__button cta__button--primary"
+                      type="submit"
+                    >
+                      {' '}
+                      {EXIT_NEWSLETTER_CTA.buttonLabel}{' '}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        height="16px"
+                        width="16px"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke="#fff"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.5"
+                          d="m14 5 7 7m0 0-7 7m7-7H3"
+                        />
+                      </svg>{' '}
+                    </button>
+                    <p className="cta__subscribe--message" id="subscribe-message">
+                      {subscribeMessage}
+                    </p>
+                  </form>
+                </div>
+                <div className="cta__image--container">
+                  <img
+                    className="cta__image"
+                    src={EXIT_NEWSLETTER_CTA.imageSrc}
+                    alt={EXIT_NEWSLETTER_CTA.imageAlt}
+                    loading="lazy"
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

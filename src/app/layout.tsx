@@ -85,7 +85,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className="post-template-default single single-post postid-33416 single-format-standard post-disney-logo">
+      <body className="blog post-how-much-does-a-logo-cost">
         {children}
       </body>
     </html>

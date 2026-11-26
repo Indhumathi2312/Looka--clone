@@ -1,9 +1,14 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { NAV_CTA, NAV_ITEMS, SEARCH_CONFIG } from '@/data/site';
 
-export default function Navbar() {
+interface NavbarProps {
+  activeSection?: 'all' | 'logo-design';
+}
+
+export default function Navbar({ activeSection = 'all' }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -29,19 +34,50 @@ export default function Navbar() {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [searchOpen]);
 
+  const getItemClassName = (id: string, defaultClass: string) => {
+    if (id === 'menu-item-1968') {
+      return activeSection === 'all'
+        ? 'menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-1564 current_page_item current_page_parent menu-item-1968'
+        : 'menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-1968';
+    }
+    if (id === 'menu-item-1682') {
+      return activeSection === 'logo-design'
+        ? 'menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-1682'
+        : 'menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1682';
+    }
+    return defaultClass;
+  };
+
   return (
     <nav className={`navbar plugin__navbar navbar--sticky${menuOpen ? ' navbar--open' : ''}`}>
-      <a href="/" className="navbar__logo">
+      <Link href="/" className="navbar__logo">
         <img src={NAV_CTA.logoSrc} alt="Logo" />
-      </a>
+      </Link>
 
       <div className="navbar__main">
         <ul id="menu-blog-menu" className="navbar__nav">
-          {NAV_ITEMS.map((item) => (
-            <li key={item.id} id={item.id} className={item.className}>
-              <a href={item.href}>{item.label}</a>
-            </li>
-          ))}
+          {NAV_ITEMS.map((item) => {
+            const isAll = item.id === 'menu-item-1968';
+            return (
+              <li
+                key={item.id}
+                id={item.id}
+                className={getItemClassName(item.id, item.className)}
+              >
+                {isAll ? (
+                  <Link
+                    href="/"
+                    aria-current={activeSection === 'all' ? 'page' : undefined}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <a href={item.href}>{item.label}</a>
+                )}
+              </li>
+            );
+          })}
           <li id="blog-menu-search" className="menu-item menu-item--search">
             <button
               type="button"

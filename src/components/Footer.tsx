@@ -1,10 +1,15 @@
+import Link from 'next/link';
 import {
   FOOTER_COLUMNS,
   FOOTER_LEGAL_LINKS,
   FOOTER_SOCIAL_LINKS,
 } from '@/data/site';
 
-export default function Footer() {
+interface FooterProps {
+  activePage?: 'home' | 'article';
+}
+
+export default function Footer({ activePage = 'home' }: FooterProps) {
   return (
     <footer className="footer">
       <div className="footer__container">
@@ -13,17 +18,33 @@ export default function Footer() {
             <p className="footer__title">{col.title}</p>
             <div className={col.containerClass}>
               <ul id={col.menuId} className="menu">
-                {col.links.map((link) => (
-                  <li key={link.id} id={link.id} className={link.className}>
-                    <a
-                      href={link.href}
-                      target={link.target}
-                      rel={link.rel}
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
+                {col.links.map((link) => {
+                  const isBlogLink = link.id === 'menu-item-2080';
+                  const className =
+                    isBlogLink && activePage === 'home'
+                      ? 'menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-1564 current_page_item current_page_parent menu-item-2080'
+                      : link.className;
+                  return (
+                    <li key={link.id} id={link.id} className={className}>
+                      {isBlogLink ? (
+                        <Link
+                          href="/"
+                          aria-current={activePage === 'home' ? 'page' : undefined}
+                        >
+                          {link.label}
+                        </Link>
+                      ) : (
+                        <a
+                          href={link.href}
+                          target={link.target}
+                          rel={link.rel}
+                        >
+                          {link.label}
+                        </a>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>
