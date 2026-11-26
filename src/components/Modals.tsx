@@ -44,8 +44,18 @@ export default function Modals({ showExitNewsletter = false }: ModalsProps) {
         setActiveModal(null);
       }
     };
+    const handleCustomOpen = (e: Event) => {
+      const custom = e as CustomEvent<ActiveModal>;
+      if (custom.detail) {
+        setActiveModal(custom.detail);
+      }
+    };
     document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('looka:open-modal', handleCustomOpen);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('looka:open-modal', handleCustomOpen);
+    };
   }, []);
 
   const openModal = (id: ActiveModal) => (e: React.MouseEvent) => {
@@ -279,7 +289,7 @@ export default function Modals({ showExitNewsletter = false }: ModalsProps) {
             <div className="modal-form__footer">
               {' '}
               By signing up, you agree to our{' '}
-              <a href="/terms/" target="_blank">
+              <a href="#signupModal" onClick={closeModal}>
                 terms of service
               </a>
             </div>

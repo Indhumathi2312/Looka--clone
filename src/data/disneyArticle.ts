@@ -54,12 +54,12 @@ export interface RecommendedArticle {
 export const ARTICLE_META = {
   category: {
     label: 'Logo Design',
-    href: 'https://looka.com/blog/category/logo-design/',
+    href: '/?category=logo-design',
   },
   title: 'Disney Logo Evolution: From 1923 to Today’s Iconic Castle',
   author: {
     name: 'Joy Jin',
-    href: 'https://looka.com/blog/author/janet/',
+    href: '#author-bio',
     titleAttr: 'Posts by Joy Jin',
     avatarSrc: '/images/Janet-headshot.jpg',
     bio: 'Joy is a freelance writer, editor, and avid learner. She loves listening to podcasts, discovering new apps, and exploring different places in Canada and abroad. Joy’s articles can be found on CBC, Chatelaine, Food Network, and more.',
@@ -308,7 +308,7 @@ export const ARTICLE_BLOCKS: ArticleBlock[] = [
       {
         type: 'link',
         text: 'script',
-        href: 'https://looka.com/blog/best-cursive-fonts/',
+        href: '/?category=logo-design',
       },
       {
         type: 'text',
@@ -831,7 +831,7 @@ export const ARTICLE_BLOCKS: ArticleBlock[] = [
   {
     type: 'pullquote',
     linkText: 'A wordmark',
-    linkHref: 'https://looka.com/blog/wordmark-logo-design/',
+    linkHref: '/blog/article/?slug=wordmark-logo-design',
     afterText:
       ' is a logo made entirely from stylized text, where the type itself serves as the distinctive visual identity. ',
   },
@@ -1152,7 +1152,7 @@ export const ARTICLE_BLOCKS: ArticleBlock[] = [
     className: 'gallery galleryid-33416 gallery-columns-3 gallery-size-medium',
     items: [
       {
-        href: 'https://looka.com/blog/disney-logo/07-28-25_disney-logo-evolution_logo-2/',
+        href: '/images/07-28-25_Disney-Logo-Evolution_LOGO-2.jpg',
         image: {
           className: 'attachment-medium size-medium lozad',
           width: 600,
@@ -1166,7 +1166,7 @@ export const ARTICLE_BLOCKS: ArticleBlock[] = [
         },
       },
       {
-        href: 'https://looka.com/blog/disney-logo/07-28-25_disney-logo-evolution_logo-3/',
+        href: '/images/07-28-25_Disney-Logo-Evolution_LOGO-3.jpg',
         image: {
           className: 'attachment-medium size-medium lozad',
           width: 600,
@@ -1180,7 +1180,7 @@ export const ARTICLE_BLOCKS: ArticleBlock[] = [
         },
       },
       {
-        href: 'https://looka.com/blog/disney-logo/07-28-25_disney-logo-evolution_logo-1/',
+        href: '/images/07-28-25_Disney-Logo-Evolution_LOGO-1.jpg',
         image: {
           className: 'attachment-medium size-medium lozad',
           width: 600,
@@ -1267,7 +1267,7 @@ export const ARTICLE_BLOCKS: ArticleBlock[] = [
       {
         type: 'link',
         text: 'logo maker.',
-        href: 'https://looka.com/logo-maker/',
+        href: '#bottom-cta',
       },
     ],
   },
@@ -1379,25 +1379,25 @@ export const ARTICLE_BLOCKS: ArticleBlock[] = [
 export const RECOMMENDED_ARTICLES: RecommendedArticle[] = [
   {
     title: 'Wordmark Logo Design: A Beginner’s Guide',
-    href: 'https://looka.com/blog/wordmark-logo-design/',
+    href: '/blog/article/?slug=wordmark-logo-design',
     category: 'Logo Design',
-    categoryHref: 'https://looka.com/blog/category/logo-design/',
+    categoryHref: '/?category=logo-design',
     backgroundImage:
       'https://cdn.logojoy.com/wp-content/uploads/20220721143132/wordmark-logo-blog-header-768x432.jpg',
   },
   {
     title: 'How to Design a Logo: A Step-by-Step Guide',
-    href: 'https://looka.com/blog/how-to-design-a-logo/',
+    href: '/blog/article/?slug=how-to-design-a-logo',
     category: 'Logo Design',
-    categoryHref: 'https://looka.com/blog/category/logo-design/',
+    categoryHref: '/?category=logo-design',
     backgroundImage:
       'https://cdn.logojoy.com/wp-content/uploads/20240819130730/08-13-24_How-to-Design-a-Logo_HEADER-768x446.jpg',
   },
   {
     title: '46 Stunning Aesthetic Logos and How to Design Your Own',
-    href: 'https://looka.com/blog/aesthetic-logo/',
+    href: '/blog/article/?slug=aesthetic-logo',
     category: 'Logo Design',
-    categoryHref: 'https://looka.com/blog/category/logo-design/',
+    categoryHref: '/?category=logo-design',
     backgroundImage:
       'https://cdn.logojoy.com/wp-content/uploads/20230427153745/aesthetic-logos-header-image-768x576.png',
   },

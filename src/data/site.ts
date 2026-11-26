@@ -2,6 +2,7 @@ export interface NavItem {
   id: string;
   label: string;
   href: string;
+  categorySlug?: string;
   className: string;
 }
 
@@ -10,8 +11,6 @@ export interface FooterLink {
   label: string;
   href: string;
   className: string;
-  target?: string;
-  rel?: string;
 }
 
 export interface FooterColumn {
@@ -36,7 +35,7 @@ export const SITE_METADATA = {
   title: 'Disney Logo Evolution: From 1923 to Today’s Iconic Castle | Looka',
   description:
     "The Disney logo represents a legacy of storytelling. See the evolution of the Disney logo and how it's changed over time.",
-  canonical: 'https://looka.com/blog/disney-logo/',
+  canonical: '/',
   ogImage: '/images/07-28-25_Disney-Logo-Evolution_CULTURAL-1-1024x595.jpg',
   themeColor: '#5340ff',
 };
@@ -45,42 +44,47 @@ export const NAV_ITEMS: NavItem[] = [
   {
     id: 'menu-item-1968',
     label: 'All',
-    href: 'https://looka.com/blog/',
+    href: '/',
     className:
       'menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-1968',
   },
   {
     id: 'menu-item-1682',
     label: 'Logo Design',
-    href: 'https://looka.com/blog/category/logo-design/',
+    href: '/?category=logo-design',
+    categorySlug: 'logo-design',
     className:
-      'menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-1682',
+      'menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1682',
   },
   {
     id: 'menu-item-2296',
     label: 'Starting a Business',
-    href: 'https://looka.com/blog/category/starting-a-business/',
+    href: '/?category=starting-a-business',
+    categorySlug: 'starting-a-business',
     className:
       'menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2296',
   },
   {
     id: 'menu-item-23353',
     label: 'Marketing',
-    href: 'https://looka.com/blog/category/marketing/',
+    href: '/?category=marketing',
+    categorySlug: 'marketing',
     className:
       'menu-item menu-item-type-taxonomy menu-item-object-category menu-item-23353',
   },
   {
     id: 'menu-item-11140',
     label: 'Branding',
-    href: 'https://looka.com/blog/category/branding/',
+    href: '/?category=branding',
+    categorySlug: 'branding',
     className:
       'menu-item menu-item-type-taxonomy menu-item-object-category menu-item-11140',
   },
   {
     id: 'menu-item-27477',
     label: 'Graphic Design',
-    href: 'https://looka.com/blog/category/graphic-design/',
+    href: '/?category=graphic-design',
+    categorySlug: 'graphic-design',
     className:
       'menu-item menu-item-type-taxonomy menu-item-object-category menu-item-27477',
   },
@@ -88,14 +92,14 @@ export const NAV_ITEMS: NavItem[] = [
 
 export const NAV_CTA = {
   label: 'Make a logo',
-  href: '/logo-maker/',
+  href: '#signupModal',
   logoSrc: '/images/looka_logo_black.svg',
   searchIconSrc: '/images/ic_search.svg',
 };
 
 export const SEARCH_CONFIG = {
   heading: 'Search the Blog',
-  action: 'https://looka.com/blog/search',
+  action: '/',
   placeholder: "Type something you're looking for",
   buttonLabel: 'Search',
 };
@@ -133,7 +137,7 @@ export const EXIT_NEWSLETTER_CTA = {
 export const BOTTOM_CTA = {
   headline: 'Get started today!',
   copy: "Use Looka's AI-powered platform to create a logo, design a website, and build a brand you love.",
-  action: '/logo-maker/app',
+  action: '#signupModal',
   placeholder: 'Enter your company name',
   buttonLabel: 'Get started',
 };
@@ -147,52 +151,50 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
       {
         id: 'menu-item-14762',
         label: 'Logo Maker',
-        href: 'https://looka.com/logo-maker/',
+        href: '/?category=logo-design',
         className: 'menu-item menu-item-type-post_type menu-item-object-page menu-item-14762',
       },
       {
         id: 'menu-item-30522',
         label: 'AI Logo Generator',
-        href: 'https://looka.com/ai-logo-generator/',
+        href: '/?category=using-looka',
         className: 'menu-item menu-item-type-custom menu-item-object-custom menu-item-30522',
       },
       {
         id: 'menu-item-19260',
         label: 'Brand Kit',
-        href: 'https://looka.com/brand-kit/',
+        href: '/?category=branding',
         className: 'menu-item menu-item-type-post_type menu-item-object-page menu-item-19260',
       },
       {
         id: 'menu-item-10574',
         label: 'Social Media Kit',
-        href: 'https://looka.com/logo-maker/social-media-kit/',
+        href: '/?category=marketing',
         className: 'menu-item menu-item-type-post_type menu-item-object-page menu-item-10574',
       },
       {
         id: 'menu-item-10577',
         label: 'Business Cards',
-        href: 'https://looka.com/logo-maker/business-card-designs/',
+        href: '/blog/article/?slug=business-card-paper',
         className: 'menu-item menu-item-type-post_type menu-item-object-page menu-item-10577',
       },
       {
         id: 'menu-item-19709',
         label: 'How it works',
-        href: 'https://looka.com/logo-maker/how-it-works/',
+        href: '/blog/article/?slug=what-is-looka-and-how-does-it-work',
         className: 'menu-item menu-item-type-post_type menu-item-object-page menu-item-19709',
       },
       {
         id: 'menu-item-19710',
         label: 'Reviews',
-        href: 'https://looka.com/logo-maker/reviews/',
+        href: '/blog/article/?slug=looka-alternatives',
         className: 'menu-item menu-item-type-post_type menu-item-object-page menu-item-19710',
       },
       {
         id: 'menu-item-21059',
         label: 'Business Name Generator',
-        href: 'https://looka.com/business-name-generator/',
+        href: '/?category=starting-a-business',
         className: 'menu-item menu-item-type-custom menu-item-object-custom menu-item-21059',
-        target: '_blank',
-        rel: 'noopener',
       },
     ],
   },
@@ -204,38 +206,38 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
       {
         id: 'menu-item-2080',
         label: 'Blog',
-        href: 'https://looka.com/blog/',
+        href: '/',
         className:
           'menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-2080',
       },
       {
         id: 'menu-item-8207',
         label: 'Logo Ideas',
-        href: 'https://looka.com/logo-ideas/',
+        href: '/?category=logo-design',
         className: 'menu-item menu-item-type-custom menu-item-object-custom menu-item-8207',
       },
       {
         id: 'menu-item-9592',
         label: 'Logo Colors',
-        href: 'https://looka.com/logo-colors/',
+        href: '/blog/disney-logo/',
         className: 'menu-item menu-item-type-custom menu-item-object-custom menu-item-9592',
       },
       {
         id: 'menu-item-10589',
         label: 'Logo Styles',
-        href: 'https://looka.com/logo-styles/',
+        href: '/blog/article/?slug=aesthetic-logo',
         className: 'menu-item menu-item-type-custom menu-item-object-custom menu-item-10589',
       },
       {
         id: 'menu-item-23098',
         label: 'Logo Wiki',
-        href: 'https://looka.com/logo-wiki/',
+        href: '/blog/article/?slug=logo-shapes-meanings',
         className: 'menu-item menu-item-type-post_type menu-item-object-page menu-item-23098',
       },
       {
         id: 'menu-item-30465',
         label: 'Business Name Ideas',
-        href: 'https://looka.com/business-name-ideas/',
+        href: '/?category=starting-a-business',
         className: 'menu-item menu-item-type-custom menu-item-object-custom menu-item-30465',
       },
     ],
@@ -248,31 +250,31 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
       {
         id: 'menu-item-2085',
         label: 'About',
-        href: 'https://looka.com/about/',
+        href: '/',
         className: 'menu-item menu-item-type-post_type menu-item-object-page menu-item-2085',
       },
       {
         id: 'menu-item-10587',
         label: 'Press',
-        href: 'https://looka.com/press/',
+        href: '/?category=branding',
         className: 'menu-item menu-item-type-post_type menu-item-object-page menu-item-10587',
       },
       {
         id: 'menu-item-2503',
         label: 'Careers',
-        href: 'https://looka.com/careers/',
+        href: '/?category=graphic-design',
         className: 'menu-item menu-item-type-post_type menu-item-object-page menu-item-2503',
       },
       {
         id: 'menu-item-13172',
         label: 'Affiliates',
-        href: 'https://looka.com/affiliate-program/',
+        href: '/?category=marketing',
         className: 'menu-item menu-item-type-post_type menu-item-object-page menu-item-13172',
       },
       {
         id: 'menu-item-25760',
         label: 'Vulnerability Disclosure Program',
-        href: 'https://looka.com/vulnerability-disclosure-program/',
+        href: '/',
         className: 'menu-item menu-item-type-post_type menu-item-object-page menu-item-25760',
       },
     ],
@@ -285,13 +287,13 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
       {
         id: 'menu-item-2087',
         label: 'Help Center',
-        href: 'https://help.looka.com/en/',
+        href: '/?category=using-looka',
         className: 'menu-item menu-item-type-custom menu-item-object-custom menu-item-2087',
       },
       {
         id: 'menu-item-10590',
         label: 'Contact',
-        href: 'https://looka.com/contact/',
+        href: '/#subscribe-cta',
         className: 'menu-item menu-item-type-post_type menu-item-object-page menu-item-10590',
       },
       {
@@ -307,7 +309,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
 export const FOOTER_SOCIAL_LINKS: SocialLinkItem[] = [
   {
     name: 'facebook',
-    href: 'https://www.facebook.com/lookadesign/',
+    href: '#subscribe-cta',
     className: ' footer__social-list-item facebook',
     fill: '#3C5A99',
     titleId: 'simpleicons-facebook-icon',
@@ -317,7 +319,7 @@ export const FOOTER_SOCIAL_LINKS: SocialLinkItem[] = [
   },
   {
     name: 'instagram',
-    href: 'https://www.instagram.com/lookadesign/',
+    href: '#subscribe-cta',
     className: 'footer__social-list-item instagram',
     fill: '#676e8b',
     titleId: 'simpleicons-instagram-icon',
@@ -327,7 +329,7 @@ export const FOOTER_SOCIAL_LINKS: SocialLinkItem[] = [
   },
   {
     name: 'linkedin',
-    href: 'https://ca.linkedin.com/company/looka/',
+    href: '#subscribe-cta',
     className: 'footer__social-list-item linkedin',
     fill: '#0274B3',
     titleId: 'simpleicons-linkedin-icon',
@@ -337,7 +339,7 @@ export const FOOTER_SOCIAL_LINKS: SocialLinkItem[] = [
   },
   {
     name: 'twitter',
-    href: 'https://x.com/lookadesign/',
+    href: '#subscribe-cta',
     className: 'footer__social-list-item twitter',
     fill: 'none',
     titleId: 'simpleicons-x-icon',
@@ -347,7 +349,7 @@ export const FOOTER_SOCIAL_LINKS: SocialLinkItem[] = [
   },
   {
     name: 'dribbble',
-    href: 'https://dribbble.com/looka-design/',
+    href: '#subscribe-cta',
     className: 'footer__social-list-item dribbble',
     fill: '#EA4C89',
     titleId: 'simpleicons-dribbble-icon',
@@ -357,7 +359,7 @@ export const FOOTER_SOCIAL_LINKS: SocialLinkItem[] = [
   },
   {
     name: 'pinterest',
-    href: 'https://www.pinterest.ca/lookadesign/',
+    href: '#subscribe-cta',
     className: 'footer__social-list-item pinterest',
     fill: '#d7143a',
     titleId: 'simpleicons-pinterest-icon',
@@ -368,8 +370,8 @@ export const FOOTER_SOCIAL_LINKS: SocialLinkItem[] = [
 ];
 
 export const FOOTER_LEGAL_LINKS = [
-  { label: 'Privacy', href: '/privacy/' },
-  { label: 'Terms', href: '/terms/' },
-  { label: 'Cookie Policy', href: '/cookie-policy/' },
-  { label: 'Site Map', href: '/sitemap/' },
+  { label: 'Privacy', href: '/' },
+  { label: 'Terms', href: '/' },
+  { label: 'Cookie Policy', href: '/' },
+  { label: 'Site Map', href: '/' },
 ];

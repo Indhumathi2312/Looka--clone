@@ -15,7 +15,7 @@ export default function SubscribeCta() {
   };
 
   return (
-    <section className="cta cta--blue cta--two-col ">
+    <section id="subscribe-cta" className="cta cta--blue cta--two-col ">
       <div className="cta__container">
         <div>
           <h2 className="cta__headline cta__headline--reverse">

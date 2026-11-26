@@ -1,13 +1,8 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import BodyClass from '@/components/BodyClass';
-import Navbar from '@/components/Navbar';
-import Modals from '@/components/Modals';
-import BlogHeader from '@/components/BlogHeader';
-import FeaturedArticleTile from '@/components/FeaturedArticleTile';
-import CategoryPostGrid from '@/components/CategoryPostGrid';
-import SubscribeCta from '@/components/SubscribeCta';
-import Footer from '@/components/Footer';
-import { BLOG_HOME_METADATA, CATEGORY_SECTIONS } from '@/data/blogHome';
+import BlogHomeClient from '@/components/BlogHomeClient';
+import { BLOG_HOME_METADATA } from '@/data/blogHome';
 
 export const metadata: Metadata = {
   title: BLOG_HOME_METADATA.title,
@@ -41,19 +36,9 @@ export default function BlogHomePage() {
   return (
     <>
       <BodyClass className="blog post-how-much-does-a-logo-cost" />
-      <Navbar activeSection="all" />
-      <Modals showExitNewsletter={false} />
-      <BlogHeader />
-      <div className="blog-container">
-        <div className="blog-index">
-          <FeaturedArticleTile />
-          {CATEGORY_SECTIONS.map((section) => (
-            <CategoryPostGrid key={section.title} section={section} />
-          ))}
-        </div>
-      </div>
-      <SubscribeCta />
-      <Footer activePage="home" />
+      <Suspense fallback={null}>
+        <BlogHomeClient />
+      </Suspense>
     </>
   );
 }

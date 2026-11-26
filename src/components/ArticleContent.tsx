@@ -1,4 +1,7 @@
-import { Fragment } from 'react';
+'use client';
+
+import Link from 'next/link';
+import { Fragment, useEffect, useState } from 'react';
 import {
   ARTICLE_BLOCKS,
   ARTICLE_META,
@@ -26,10 +29,14 @@ function renderInlineParts(parts: InlinePart[]) {
           </i>
         );
       case 'link':
-        return (
+        return part.href.startsWith('#') ? (
           <a key={idx} href={part.href}>
             {part.text}
           </a>
+        ) : (
+          <Link key={idx} href={part.href}>
+            {part.text}
+          </Link>
         );
     }
   });
@@ -37,6 +44,16 @@ function renderInlineParts(parts: InlinePart[]) {
 
 export default function ArticleContent() {
   const { featuredImage, author } = ARTICLE_META;
+  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!lightboxSrc) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setLightboxSrc(null);
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [lightboxSrc]);
 
   return (
     <main className="blog-single__main">
@@ -119,7 +136,7 @@ export default function ArticleContent() {
               return (
                 <div key={index} className="altpull">
                   {' '}
-                  <a href={block.linkHref}>{block.linkText}</a>
+                  <Link href={block.linkHref}>{block.linkText}</Link>
                   {block.afterText}
                 </div>
               );
@@ -130,7 +147,13 @@ export default function ArticleContent() {
                   {block.items.map((item, itemIdx) => (
                     <dl key={itemIdx} className="gallery-item">
                       <dt className="gallery-icon landscape">
-                        <a href={item.href}>
+                        <a
+                          href={item.href}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setLightboxSrc(item.href);
+                          }}
+                        >
                           <img
                             loading={item.image.loading}
                             decoding="async"
@@ -171,9 +194,37 @@ export default function ArticleContent() {
         })}
       </div>
 
+      {lightboxSrc && (
+        <div
+          className="lightbox lightbox--active"
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setLightboxSrc(null)}
+        >
+          <button
+            type="button"
+            className="lightbox__button lightbox__button--close"
+            aria-label="Close image preview"
+            onClick={() => setLightboxSrc(null)}
+          >
+            ×
+          </button>
+          <div
+            className="lightbox__image_container"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={lightboxSrc}
+              alt="Logo preview"
+              className="lightbox__image"
+            />
+          </div>
+        </div>
+      )}
+
       <SocialShare />
 
-      <aside className="blog-single__author">
+      <aside id="author-bio" className="blog-single__author">
         <div className="blog-single__author-container">
           <div className="blog-single__author-byline">
             <img

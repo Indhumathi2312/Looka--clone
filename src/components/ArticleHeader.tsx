@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { ARTICLE_META } from '@/data/disneyArticle';
 import SocialShare from './SocialShare';
 
@@ -5,7 +6,7 @@ export default function ArticleHeader() {
   return (
     <header className="blog-single__header">
       <div className="blog-single__category">
-        <a href={ARTICLE_META.category.href}>{ARTICLE_META.category.label}</a>
+        <Link href={ARTICLE_META.category.href}>{ARTICLE_META.category.label}</Link>
       </div>
       <h1 className="blog-single__title">{ARTICLE_META.title}</h1>
       <div className="meta meta--flat">

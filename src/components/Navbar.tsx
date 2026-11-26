@@ -1,14 +1,16 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { FormEvent, useEffect, useState } from 'react';
 import { NAV_CTA, NAV_ITEMS, SEARCH_CONFIG } from '@/data/site';
 
 interface NavbarProps {
-  activeSection?: 'all' | 'logo-design';
+  activeSection?: string;
 }
 
 export default function Navbar({ activeSection = 'all' }: NavbarProps) {
+  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -34,47 +36,61 @@ export default function Navbar({ activeSection = 'all' }: NavbarProps) {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [searchOpen]);
 
-  const getItemClassName = (id: string, defaultClass: string) => {
+  const getItemClassName = (id: string, categorySlug?: string, defaultClass?: string) => {
     if (id === 'menu-item-1968') {
       return activeSection === 'all'
         ? 'menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-1564 current_page_item current_page_parent menu-item-1968'
         : 'menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-1968';
     }
-    if (id === 'menu-item-1682') {
-      return activeSection === 'logo-design'
-        ? 'menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-1682'
-        : 'menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1682';
+    if (categorySlug && activeSection === categorySlug) {
+      return `menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent ${id}`;
     }
-    return defaultClass;
+    return defaultClass || `menu-item menu-item-type-taxonomy menu-item-object-category ${id}`;
+  };
+
+  const handleSearchSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const trimmed = searchQuery.trim();
+    setSearchOpen(false);
+    setMenuOpen(false);
+    if (trimmed) {
+      router.push(`/?q=${encodeURIComponent(trimmed)}`);
+    } else {
+      router.push('/');
+    }
+  };
+
+  const handleMakeLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setMenuOpen(false);
+    window.dispatchEvent(new CustomEvent('looka:open-modal', { detail: 'signupModal' }));
   };
 
   return (
     <nav className={`navbar plugin__navbar navbar--sticky${menuOpen ? ' navbar--open' : ''}`}>
-      <Link href="/" className="navbar__logo">
+      <Link href="/" className="navbar__logo" onClick={() => setMenuOpen(false)}>
         <img src={NAV_CTA.logoSrc} alt="Logo" />
       </Link>
 
       <div className="navbar__main">
         <ul id="menu-blog-menu" className="navbar__nav">
           {NAV_ITEMS.map((item) => {
-            const isAll = item.id === 'menu-item-1968';
+            const isActive =
+              (item.id === 'menu-item-1968' && activeSection === 'all') ||
+              (item.categorySlug && activeSection === item.categorySlug);
             return (
               <li
                 key={item.id}
                 id={item.id}
-                className={getItemClassName(item.id, item.className)}
+                className={getItemClassName(item.id, item.categorySlug, item.className)}
               >
-                {isAll ? (
-                  <Link
-                    href="/"
-                    aria-current={activeSection === 'all' ? 'page' : undefined}
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                ) : (
-                  <a href={item.href}>{item.label}</a>
-                )}
+                <Link
+                  href={item.href}
+                  aria-current={isActive ? 'page' : undefined}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
               </li>
             );
           })}
@@ -92,7 +108,12 @@ export default function Navbar({ activeSection = 'all' }: NavbarProps) {
 
         <ul className="navbar__account">
           <li>
-            <a href={NAV_CTA.href} className="get-started" rel="modal">
+            <a
+              href={NAV_CTA.href}
+              className="get-started"
+              rel="modal"
+              onClick={handleMakeLogoClick}
+            >
               {NAV_CTA.label}
             </a>
           </li>
@@ -126,6 +147,7 @@ export default function Navbar({ activeSection = 'all' }: NavbarProps) {
           method="get"
           className="searchbar__form"
           id="search-form"
+          onSubmit={handleSearchSubmit}
         >
           <label className="screen-reader-text" htmlFor="blog-menu-search-input">
             Search for:

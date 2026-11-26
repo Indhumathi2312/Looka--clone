@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { RECOMMENDED_ARTICLES } from '@/data/disneyArticle';
 
 export default function RecommendedArticles() {
@@ -7,7 +8,7 @@ export default function RecommendedArticles() {
       <div className="blog-related__posts">
         {RECOMMENDED_ARTICLES.map((post) => (
           <article key={post.href} className="tile ">
-            <a
+            <Link
               className="tile__image lozad"
               aria-label="Read the article"
               style={{
@@ -18,12 +19,12 @@ export default function RecommendedArticles() {
               href={post.href}
             />
             <div className="tile__content">
-              <a className="meta meta--category" href={post.categoryHref}>
+              <Link className="meta meta--category" href={post.categoryHref}>
                 {post.category}
-              </a>
-              <a href={post.href}>
+              </Link>
+              <Link href={post.href}>
                 <h3 className="tile__title">{post.title}</h3>
-              </a>
+              </Link>
             </div>
           </article>
         ))}

@@ -26,21 +26,19 @@ export default function Footer({ activePage = 'home' }: FooterProps) {
                       : link.className;
                   return (
                     <li key={link.id} id={link.id} className={className}>
-                      {isBlogLink ? (
+                      {link.href.startsWith('mailto:') ? (
+                        <a href={link.href}>{link.label}</a>
+                      ) : (
                         <Link
-                          href="/"
-                          aria-current={activePage === 'home' ? 'page' : undefined}
+                          href={link.href}
+                          aria-current={
+                            isBlogLink && activePage === 'home'
+                              ? 'page'
+                              : undefined
+                          }
                         >
                           {link.label}
                         </Link>
-                      ) : (
-                        <a
-                          href={link.href}
-                          target={link.target}
-                          rel={link.rel}
-                        >
-                          {link.label}
-                        </a>
                       )}
                     </li>
                   );
@@ -61,9 +59,8 @@ export default function Footer({ activePage = 'home' }: FooterProps) {
                 <a
                   itemProp="sameAs"
                   href={item.href}
-                  rel="noopener noreferrer"
-                  target="_blank"
                   className={item.className}
+                  aria-label={item.titleText}
                 >
                   <svg
                     aria-labelledby={item.titleId}
@@ -96,9 +93,9 @@ export default function Footer({ activePage = 'home' }: FooterProps) {
       <p className="footer__copyright">
         © 2026 Looka Inc.{' '}
         {FOOTER_LEGAL_LINKS.map((legal, idx) => (
-          <span key={legal.href}>
+          <span key={`${legal.label}-${idx}`}>
             {idx > 0 ? ' / ' : ''}
-            <a href={legal.href}>{legal.label}</a>
+            <Link href={legal.href}>{legal.label}</Link>
           </span>
         ))}
       </p>
